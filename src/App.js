@@ -1,44 +1,65 @@
 import React, { Component } from 'react';
-import Gallery from 'react-photo-gallery';
-import Photo from './Photo';
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
-
+import { Navbar, Button } from 'react-bootstrap';
 import './App.css';
 
-const photos = [
-  { src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599', width: 4, height: 3 },
-  { src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799', width: 1, height: 1 },
-  { src: 'https://source.unsplash.com/qDkso9nvCg0/600x799', width: 3, height: 4 },
-  { src: 'https://source.unsplash.com/iecJiKe_RNg/600x799', width: 3, height: 4 },
-  { src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799', width: 3, height: 4 },
-  { src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599', width: 4, height: 3 },
-  { src: 'https://source.unsplash.com/zh7GEuORbUw/600x799', width: 3, height: 4 },
-  { src: 'https://source.unsplash.com/PpOHJezOalU/800x599', width: 4, height: 3 },
-  { src: 'https://source.unsplash.com/I1ASdgphUH4/800x599', width: 4, height: 3 }
-];
-
-const SortablePhoto = SortableElement(Photo);
-const SortableGallery = SortableContainer(({photos}) => {
-  return <Gallery photos={photos} ImageComponent={SortablePhoto}/>
-});
-
 class App extends Component {
-  constructor(){
-    super();
-    this.onSortEnd = this.onSortEnd.bind(this);
-    this.state = {
-      photos: photos,
-    };
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
   }
-  onSortEnd ({ oldIndex, newIndex }) {
-    this.setState({
-      photos: arrayMove(this.state.photos, oldIndex, newIndex),
-    });
+
+  login() {
+    this.props.auth.login();
   }
+
+  logout() {
+    this.props.auth.logout();
+  }
+
   render() {
+    const { isAuthenticated } = this.props.auth;
+
     return (
-      <SortableGallery axis={"xy"} photos={this.state.photos} onSortEnd={this.onSortEnd} />
-    )
+      <div>
+        <Navbar fluid>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">Auth0 - React</a>
+            </Navbar.Brand>
+            <Button
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, 'home')}
+            >
+              Home
+            </Button>
+            {
+              !isAuthenticated() && (
+                  <Button
+                    id="qsLoginBtn"
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.login.bind(this)}
+                  >
+                    Log In
+                  </Button>
+                )
+            }
+            {
+              isAuthenticated() && (
+                  <Button
+                    id="qsLogoutBtn"
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.logout.bind(this)}
+                  >
+                    Log Out
+                  </Button>
+                )
+            }
+          </Navbar.Header>
+        </Navbar>
+      </div>
+    );
   }
 }
 

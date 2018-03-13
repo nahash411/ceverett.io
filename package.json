@@ -23,6 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prod": "PORT=5825 serve -s build"
+    "prod": "PORT=5825 serve -s build",
+    "pm2": "pm2 start npm -- run prod --watch"
   }
 }

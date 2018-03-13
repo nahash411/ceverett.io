@@ -2,6 +2,7 @@
   "name": "ceverett.io",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://ceverett.io",
   "dependencies": {
     "auth0-js": "^9.3.3",
     "bootstrap": "^4.0.0",

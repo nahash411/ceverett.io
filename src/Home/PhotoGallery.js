@@ -1,7 +1,5 @@
 import React, {Component } from 'react'
 import Gallery from 'react-photo-gallery'
-import Photo from './Photo'
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 import Lightbox from 'react-images'
 
 const photos = [
@@ -16,11 +14,6 @@ const photos = [
   { src: 'https://source.unsplash.com/I1ASdgphUH4/800x599', width: 4, height: 3 }
 ]
 
-const SortablePhoto = SortableElement(Photo)
-const SortableGallery = SortableContainer(({photos}) => {
-  return <Gallery photos={photos} ImageComponent={SortablePhoto}/>
-})
-
 export default class PhotoGallery extends Component {
 
   constructor(){
@@ -29,17 +22,10 @@ export default class PhotoGallery extends Component {
       photos: photos,
       currentImage: 0
     }
-    this.onSortEnd = this.onSortEnd.bind(this)
     this.closeLightbox = this.closeLightbox.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoPrevious = this.gotoPrevious.bind(this);
-  }
-
-  onSortEnd ({ oldIndex, newIndex }) {
-    this.setState({
-      photos: arrayMove(this.state.photos, oldIndex, newIndex),
-    })
   }
 
   openLightbox(event, obj) {
@@ -70,14 +56,16 @@ export default class PhotoGallery extends Component {
 
   render() {
     return (
-      <SortableGallery axis={"xy"} photos={this.state.photos} onSortEnd={this.onSortEnd} />
-      <Lightbox images={photos}
-        onClose={this.closeLightbox}
-        onClickPrev={this.gotoPrevious}
-        onClickNext={this.gotoNext}
-        currentImage={this.state.currentImage}
-        isOpen={this.state.lightboxIsOpen}
-      />
+      <div className="gallery">
+        <Gallery photos={photos} onClick={this.openLightbox}/>
+        <Lightbox images={photos}
+          onClose={this.closeLightbox}
+          onClickPrev={this.gotoPrevious}
+          onClickNext={this.gotoNext}
+          currentImage={this.state.currentImage}
+          isOpen={this.state.lightboxIsOpen}
+        />
+      </div>
     )
   }
 

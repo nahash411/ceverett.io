@@ -25,6 +25,6 @@
     "eject": "react-scripts eject",
     "prod": "PORT=5825 serve -s build",
     "pm2prod": "pm2 start npm -- run prod",
-    "pm2dev": "pm2 start npm -- start"
+    "pm2dev": "pm2 start npm -- start --watch"
   }
 }

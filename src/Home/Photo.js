@@ -14,7 +14,7 @@ const cont = {
 
 export default ({ photo, margin}) => {
   return (<div style={{ margin, width: photo.width, ...cont }}>
-    <img style={{ ...imgStyle }} {...photo} />
+    <img style={{ ...imgStyle }} {...photo} alt="" />
   </div>
   );
 }

@@ -3,7 +3,7 @@ require 'fastimage'
 
 root_url = 'https://ceverett-io.nyc3.digitaloceanspaces.com/'
 
-img_nums = (4092..4419)
+img_nums = (4680..5315)
 
 img_nums.each do |img_num|
 

@@ -44,8 +44,8 @@ router.get('/photos/:category', async_middleware(async (req, res, next) => {
 
       const photo = {
         src: img_data[0],
-        width: img_data[1],
-        height: img_data[2],
+        width: parseInt(img_data[1], 10),
+        height: parseInt(img_data[2], 10),
         categories: categories
       }
 

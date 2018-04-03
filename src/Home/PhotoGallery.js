@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Gallery from 'react-photo-gallery'
 import Lightbox from 'react-images'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import axios from 'axios'
 
-const categories = ['uncategorized']
+let categories = []
 
 let photos = [
   { src: 'https://ceverett-io.nyc3.digitaloceanspaces.com/IMG_4092.jpg', width: 3, height: 2 },
@@ -980,6 +981,14 @@ export default class PhotoGallery extends Component {
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
     this.gotoPrevious = this.gotoPrevious.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get('http://localhost:3000/categories')
+      .then((res) => {
+        categories = res.data
+        this.setState({ categories })
+      })
   }
 
   openLightbox(event, obj) {

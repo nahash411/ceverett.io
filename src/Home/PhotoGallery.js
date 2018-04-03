@@ -1,8 +1,9 @@
-import React, {Component } from 'react'
+import React, { Component } from 'react'
 import Gallery from 'react-photo-gallery'
 import Lightbox from 'react-images'
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
-const caategories = ['uncategorized']
+const categories = ['uncategorized']
 
 let photos = [
   { src: 'https://ceverett-io.nyc3.digitaloceanspaces.com/IMG_4092.jpg', width: 3, height: 2 },
@@ -972,7 +973,8 @@ export default class PhotoGallery extends Component {
     super()
     this.state = {
       photos: photos,
-      currentImage: 0
+      currentImage: 0,
+      categories: categories
     }
     this.closeLightbox = this.closeLightbox.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
@@ -1009,6 +1011,15 @@ export default class PhotoGallery extends Component {
   render() {
     return (
       <div className="gallery">
+        <FormGroup controlId="formControlsSelect">
+          <ControlLabel>Select</ControlLabel>
+          <FormControl componentClass="select" placeholder="select">
+            <option value="select">select</option>
+            {this.state.categories.map((category) => {
+              return <option value={category} key={category}>{category}</option>
+            })}
+          </FormControl>
+        </FormGroup>
         <Gallery photos={photos} onClick={this.openLightbox}/>
         <Lightbox images={photos}
           onClose={this.closeLightbox}

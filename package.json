@@ -2,7 +2,7 @@
   "name": "ceverett.io",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://ceverett.io",
+  "homepage": "https://ceverett.io",
   "dependencies": {
     "auth0-js": "^9.3.3",
     "bootstrap": "^4.0.0",
@@ -16,7 +16,8 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
-    "react-sortable-hoc": "^0.6.8"
+    "react-sortable-hoc": "^0.6.8",
+    "redis": "^2.8.0"
   },
   "scripts": {
     "start": "react-scripts start",

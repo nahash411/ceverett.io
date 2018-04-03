@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Gallery from 'react-photo-gallery'
+import Gallery from '../react-photo-gallery'
 import Lightbox from 'react-images'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import axios from 'axios'

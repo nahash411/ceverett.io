@@ -3,7 +3,7 @@ const router = express.Router()
 
 const async_middleware = require('../utils/middleware');
 
-router.get('/', async_middleware(async function(req, res, next) {
+router.get('/', async_middleware(async (req, res, next) => {
   res.json({ 'title': 'Found the API' })
 }))
 

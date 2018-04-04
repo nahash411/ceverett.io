@@ -25,7 +25,7 @@ img_nums.each do |img_num|
     height = 3
   end
 
-  redis.hmset("image:#{img_num}", "src", img_url, "width", width, "height", height)
+  redis.hmset("image:#{img_num}", "id", img_num, "src", img_url, "width", width, "height", height)
   redis.sadd("image:#{img_num}:categories", 'uncategorized')
 
   puts "Set image data successful for #{img_num}"

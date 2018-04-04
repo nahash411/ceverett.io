@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import Gallery from '../react-photo-gallery'
+import Gallery from 'react-photo-gallery'
 import Lightbox from 'react-images'
+import SelectedImage from './SelectedImage'
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 import axios from 'axios'
 
@@ -17,10 +18,12 @@ export default class PhotoGallery extends Component {
       currentImage: 0,
       categories: categories
     }
-    this.closeLightbox = this.closeLightbox.bind(this);
-    this.openLightbox = this.openLightbox.bind(this);
-    this.gotoNext = this.gotoNext.bind(this);
-    this.gotoPrevious = this.gotoPrevious.bind(this);
+    this.closeLightbox = this.closeLightbox.bind(this)
+    this.openLightbox = this.openLightbox.bind(this)
+    this.gotoNext = this.gotoNext.bind(this)
+    this.gotoPrevious = this.gotoPrevious.bind(this)
+    this.selectPhoto = this.selectPhoto.bind(this)
+    this.toggleSelect = this.toggleSelect.bind(this)
   }
 
   componentWillMount() {
@@ -33,6 +36,17 @@ export default class PhotoGallery extends Component {
             this.setState({ photos, categories })
           })
       })
+  }
+
+  selectPhoto(event, obj) {
+    let photos = this.state.photos;
+    photos[obj.index].selected = !photos[obj.index].selected;
+    this.setState({ photos: photos });
+  }
+
+  toggleSelect() {
+    let photos = this.state.photos.map((photo, index) => { return { ...photo, selected: !this.state.selectAll } });
+    this.setState({ photos: photos, selectAll: !this.state.selectAll });
   }
 
   openLightbox(event, obj) {
@@ -73,8 +87,8 @@ export default class PhotoGallery extends Component {
             })}
           </FormControl>
         </FormGroup>
-        <Gallery photos={photos} onClick={this.openLightbox}/>
-        <Lightbox images={photos}
+        <Gallery photos={this.state.photos} onClick={this.selectPhoto} ImageComponent={SelectedImage}/>
+        <Lightbox images={this.state.photos}
           onClose={this.closeLightbox}
           onClickPrev={this.gotoPrevious}
           onClickNext={this.gotoNext}

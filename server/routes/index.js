@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors')
 
 const redis = require("redis")
 const client = redis.createClient()
@@ -15,7 +16,7 @@ router.get('/', async_middleware(async (req, res, next) => {
   res.json({ 'title': 'Found the API' })
 }))
 
-router.get('/categories', async_middleware(async (req, res, next) => {
+router.get('/categories', cors(), async_middleware(async (req, res, next) => {
 
   client.smembers('categories', (err, categories) => {
     res.json(categories)
